@@ -13,10 +13,11 @@ app = Flask(__name__)
 # Define paths for trained models (adjust paths as needed)
 MODEL_PATHS = {
     "mixed_spices": {
-        "yolov11": r"C:\Users\karth\OneDrive\Desktop\SPICE DETECTION\best.pt",
-        "frcnn": r"C:\Users\karth\OneDrive\Desktop\SPICE DETECTION\best.pt"
+        "yolov11": "models/best.pt",
+        "frcnn": "models/best.pt"
     }
 }
+
 
 # Load models dynamically
 models = {}
