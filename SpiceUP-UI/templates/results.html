@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Detection Results for {{ spice|capitalize }}</title>
+    <style>
+        body {
+            background-color: #f5f5dc; /* Light beige background */
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            color: #4a2c2a; /* Dark brown */
+            padding: 20px 0;
+            background-color: #e6d5b8; /* Light tan header background */
+            margin: 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        h3 {
+            color: #4a2c2a; /* Dark brown */
+            margin-top: 30px;
+        }
+        h4 {
+            color: #6b4e31; /* Medium brown */
+            margin-bottom: 10px;
+        }
+        .image-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 20px;
+            margin: 20px 0;
+            background-color: #fff5e1; /* Very light cream background for images */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .model-result {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        img {
+            max-width: 400px;
+            max-height: 300px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            display: block; /* Ensure image is not hidden */
+        }
+        .count-container {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #4a2c2a;
+            background-color: #fff5e1;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        button {
+            background-color: #d4a017; /* Warm mustard yellow */
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            margin: 20px 0;
+        }
+        button:hover {
+            background-color: #b38b14; /* Darker mustard yellow on hover */
+            transform: scale(1.05);
+        }
+        button:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body>
+    <h1>Detection Results for {{ spice|capitalize }}</h1>
+    {% for image in images %}
+        <h3>Original File: {{ image.filename }}</h3>
+        <div class="image-container">
+            <div class="model-result">
+                <h4>YOLOv11 Result:</h4>
+                <img src="data:image/jpeg;base64,{{ image.yolov11 }}" alt="YOLOv11">
+                <div class="count-container">
+                    <p>Total {{ image.spice|capitalize }}: {{ image.total_yolov11 }}</p>
+                    <p>Good {{ image.spice|capitalize }}: {{ image.good_yolov11 }}</p>
+                    <p>Bad {{ image.spice|capitalize }}: {{ image.bad_yolov11 }}</p>
+                </div>
+            </div>
+            <div class="model-result">
+                <h4>F R-CNN Result:</h4>
+                <img src="data:image/jpeg;base64,{{ image.frcnn }}" alt="F R-CNN">
+                <div class="count-container">
+                    <p>Total {{ image.spice|capitalize }}: {{ image.total_frcnn }}</p>
+                    <p>Good {{ image.spice|capitalize }}: {{ image.good_frcnn }}</p>
+                    <p>Bad {{ image.spice|capitalize }}: {{ image.bad_frcnn }}</p>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    <a href="{{ url_for('index') }}"><button>Back</button></a>
+</body>
+</html>
